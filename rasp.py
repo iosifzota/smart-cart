@@ -151,5 +151,5 @@ class FakeReader:
 
 if __name__ == "__main__":
     client = Client(host, port)
-    reader = FakeReader() # SimpleMFRC522()
+    reader = FakeReader() # inlocuieste cu: SimpleMFRC522()
     loop(client,reader)
