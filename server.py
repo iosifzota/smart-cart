@@ -4,7 +4,7 @@ import types
 from SimplePacket import SimplePacket
 from cart import Cart
 
-host = '10.146.1.90'
+host = '0.0.0.0'
 port = 5556
 
 shoppingCart = Cart()
