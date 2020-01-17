@@ -1,12 +1,10 @@
-host = '35.224.200.153'
+#host = '10.146.1.36'
+host = '35.246.183.183'
 #host = '10.146.1.202'
 port = 5556
 
 import socket
 import time
-from SimplePacket import SimplePacket
-
-
 
 def convertToRaw(id,text):
     text = id + " " + text
@@ -16,12 +14,10 @@ def loop(client, reader):
     continueReading = True
 
     while continueReading:
-        id, text = reader.read()
-        raw = convertToRaw(id, text)
-
+        raw = reader.read()
         print("Sending: ", raw)
         print("Response: ", client.send(raw))
-        time.sleep(2)
+        time.sleep(10)
 
     client.close()
 
@@ -32,7 +28,7 @@ class FakeReader:
         self.reader = reader
 
     def read(self):
-        return "1","dog 15"
+        return b'1 dog 15\n'
 
 class Client:
 
@@ -44,12 +40,9 @@ class Client:
         print("starting connection to ", (host,port))
 
         self.sock.connect((host,port))
-        self.packetCreator = SimplePacket()
 
     def send(self, data):
-        self.packetCreator.pack(data)
-        print("Sending ", self.packetCreator.buffer)
-        self.sock.sendall(self.packetCreator.buffer)
+        self.sock.sendall(data)
 
     def close(self):
         if self.sock is not None:
